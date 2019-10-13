@@ -8,7 +8,7 @@ const axiosClient = axios.create({
   json: true
 });
 
-const HTTP_POST = 'post';
+// const HTTP_POST = 'post';
 const HTTP_GET = 'get';
 const HTTP_PUT = 'put';
 const HTTP_PATCH = 'patch';
@@ -16,7 +16,7 @@ const HTTP_DELETE = 'delete';
 
 const Client = {
   getAllItems() {
-    this.request(HTTP_GET, this.itemPath(null), data);
+    this.request(HTTP_GET, this.itemPath(null));
   },
 
   addNewItem(data) {
