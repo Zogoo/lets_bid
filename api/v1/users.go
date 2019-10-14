@@ -1,11 +1,29 @@
 package v1
 
-import "net/http"
+import (
+	"encoding/json"
+	"lets_bid/service"
+	"net/http"
+)
 
-func create(w http.ResponseWriter, r *http.Request) {
+func Create(w http.ResponseWriter, r *http.Request) {
+	user := &service.User{}
+	err := json.NewDecoder(r.Body).Decode(user)
 
+	if err != nil {
+		var resp = map[string]interface{}{"status": false, "message": "Invalid request"}
+		json.NewEncoder(w).Encode(resp)
+	}
+	service.CreateNewUser(user)
 }
 
-func auth(w http.ResponseWriter, r *http.Request) {
+func Auth(w http.ResponseWriter, r *http.Request) {
+	user := &service.User{}
+	err := json.NewDecoder(r.Body).Decode(user)
 
+	if err != nil {
+		var resp = map[string]interface{}{"status": false, "message": "Invalid request"}
+		json.NewEncoder(w).Encode(resp)
+	}
+	service.AuthenticatePass(user)
 }

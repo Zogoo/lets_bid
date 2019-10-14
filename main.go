@@ -1,19 +1,16 @@
 package main
 
 import (
+	"lets_bid/routes"
 	"log"
-
-	"github.com/joho/godotenv"
+	"net/http"
 )
 
 func main() {
 
-	e := godotenv.Load()
+	// Handler
+	http.Handle("/", routes.Handlers())
 
-	if e != nil {
-		log.Fatal("Error loading env file")
-	}
-
-	connectDb()
-
+	log.Printf("Server up on port 8089")
+	log.Fatal(http.ListenAndServe(":8089", nil))
 }
