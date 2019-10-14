@@ -3,7 +3,7 @@ package utils
 import (
 	"database/sql"
 
-	_ "github.com/lib/pg"
+	_ "github.com/lib/pq"
 )
 
 func ConnectDb() *sql.DB {
