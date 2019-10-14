@@ -31,6 +31,7 @@
                       name="login"
                       prepend-icon="mdi-account"
                       type="text"
+                      v-model="userInfo.email"
                     ></v-text-field>
 
                     <v-text-field
@@ -40,6 +41,7 @@
                       prepend-icon="mdi-lock"
                       append-icon="mdi-eye-off"
                       :type="showPassword ? 'text' : 'password'"
+                      v-model="userInfo.password"
                       @click:append="toggleShowPassword()"
                     ></v-text-field>
                   </v-form>
@@ -47,7 +49,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="primary">Register</v-btn>
-                  <v-btn color="primary">Login</v-btn>
+                  <v-btn color="primary" @click="login()">Login</v-btn>
                 </v-card-actions>
               </v-card>
             </v-flex>
@@ -58,12 +60,17 @@
   </div>
 </template>
 <script>
+  import Client from '../client'
   export default {
     props: {
     },
     data() {
       return {
-        showPassword: false
+        showPassword: false,
+        userInfo: {
+          email: "",
+          password: ""
+        }
       }
     },
     async mounted() {
@@ -74,7 +81,7 @@
         this.showPassword = !this.showPassword;
       },
       login(){
-        
+        Client.login(JSON.stringify(this.userInfo))
       }
     },
 }

@@ -1,6 +1,10 @@
 package utils
 
-import "database/sql"
+import (
+	"database/sql"
+
+	_ "github.com/lib/pg"
+)
 
 func ConnectDb() *sql.DB {
 	var err error

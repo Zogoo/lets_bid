@@ -8,13 +8,18 @@ const axiosClient = axios.create({
   json: true
 });
 
-// const HTTP_POST = 'post';
+const HTTP_POST = 'post';
 const HTTP_GET = 'get';
 const HTTP_PUT = 'put';
 const HTTP_PATCH = 'patch';
 const HTTP_DELETE = 'delete';
 
 const Client = {
+
+  login(data) {
+     this.request(HTTP_POST, '/login', data);
+  },
+
   getAllItems() {
     this.request(HTTP_GET, this.itemPath(null));
   },
@@ -32,14 +37,14 @@ const Client = {
   },
 
   async request(method, path, data) {
-    let accessToken = await Vue.prototype.$auth.getAccessToken();
+    // let accessToken = await Vue.prototype.$auth.getAccessToken();
 
     return axiosClient({
       method,
       url: path,
       data,
       headers: {
-        Authorization: `Bearer: ${accessToken}`
+        // Authorization: `Bearer: ${accessToken}`
       }
     }).then(req => {
       return req.data;
