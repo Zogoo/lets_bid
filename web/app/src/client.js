@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8089';
