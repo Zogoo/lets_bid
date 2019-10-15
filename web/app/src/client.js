@@ -15,23 +15,23 @@ const Client = {
   }),
 
   login(data) {
-    this.request(this.HTTP_POST, "/login", data);
+    return this.request(this.HTTP_POST, "/login", data);
   },
 
   getAllItems() {
-    this.request(this.HTTP_GET, this.itemPath(null));
+    return this.request(this.HTTP_GET, this.itemPath(null));
   },
 
   addNewItem(data) {
-    this.request(this.HTTP_PUT, this.itemPath(), data);
+    return this.request(this.HTTP_PUT, this.itemPath(), data);
   },
 
   updateItem(itemId, data) {
-    this.request(this.HTTP_PATCH, this.itemPath(itemId), data);
+    return this.request(this.HTTP_PATCH, this.itemPath(itemId), data);
   },
 
   deleteItem(itemId) {
-    this.request(this.HTTP_DELETE, this.itemPath(itemId));
+    return this.request(this.HTTP_DELETE, this.itemPath(itemId));
   },
 
   async request(method, path, data) {
@@ -48,6 +48,7 @@ const Client = {
       return req.data;
     });
   },
+
   itemPath(itemId = "") {
     if (itemId == null) {
       return "items";

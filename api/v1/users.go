@@ -15,6 +15,8 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(resp)
 	}
 	service.CreateNewUser(user)
+
+	json.NewEncoder(w).Encode("OK")
 }
 
 func Auth(w http.ResponseWriter, r *http.Request) {
@@ -26,4 +28,5 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(resp)
 	}
 	service.AuthenticatePass(user)
+	json.NewEncoder(w).Encode("OK")
 }

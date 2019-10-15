@@ -82,6 +82,11 @@
       },
       login(){
         client.login(JSON.stringify(this.userInfo))
+        .then((resp) => {
+          if (resp == "OK") {
+            this.$router.push("/my_page");
+          }
+        });
       },
     },
 }
