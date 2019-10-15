@@ -23,7 +23,7 @@ func CreateNewUser(user *User) {
 	conn := utils.ConnectDb()
 
 	// Insert
-	if _, err = conn.Query("insert into users values ($1, $2)", user.Name, string(hashedPassword)); err != nil {
+	if _, err = conn.Query("insert into users values ($1, $2, $3)", user.Name, user.Email, string(hashedPassword)); err != nil {
 		panic("Connection error")
 	}
 }
@@ -39,15 +39,22 @@ func DeleteUser(user *User) {
 func AuthenticatePass(user *User) error {
 	conn := utils.ConnectDb()
 
-	result := conn.QueryRow("select * from users where users.email = $1", user.Email)
+	result := conn.QueryRow("select password from users where users.email = $1", user.Email)
 
 	if result != nil {
 		return errors.New("User does not exists in database")
 	}
 
-	err := result.Scan(user.Password)
+	dbResult := &User{}
+	err := result.Scan(dbResult.Password)
 
 	if err != nil && err == sql.ErrNoRows {
+		return errors.New("Wrong credentials")
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(dbResult.Password), []byte(user.Password))
+
+	if err != nil {
 		return errors.New("Wrong credentials")
 	}
 

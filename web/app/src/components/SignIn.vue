@@ -31,8 +31,8 @@
                       name="login"
                       prepend-icon="mdi-account"
                       type="text"
-                      v-model="userInfo.email"
-                    ></v-text-field>
+                      v-model="userInfo.email">
+                    </v-text-field>
 
                     <v-text-field
                       id="password"
@@ -42,13 +42,13 @@
                       append-icon="mdi-eye-off"
                       :type="showPassword ? 'text' : 'password'"
                       v-model="userInfo.password"
-                      @click:append="toggleShowPassword()"
-                    ></v-text-field>
+                      @click:append="toggleShowPassword()">
+                    </v-text-field>
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
+                  <v-btn color="primary" @click="$router.push('/signup')">Register</v-btn>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary">Register</v-btn>
                   <v-btn color="primary" @click="login()">Login</v-btn>
                 </v-card-actions>
               </v-card>
@@ -60,7 +60,7 @@
   </div>
 </template>
 <script>
-  import Client from '../client'
+  import client from '../client'
   export default {
     props: {
     },
@@ -81,8 +81,8 @@
         this.showPassword = !this.showPassword;
       },
       login(){
-        Client.login(JSON.stringify(this.userInfo))
-      }
+        client.login(JSON.stringify(this.userInfo))
+      },
     },
 }
 </script>
