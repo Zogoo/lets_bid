@@ -13,6 +13,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		var resp = map[string]interface{}{"status": false, "message": "Invalid request"}
 		json.NewEncoder(w).Encode(resp)
+		return
 	}
 	service.CreateNewUser(user)
 
@@ -26,7 +27,21 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		var resp = map[string]interface{}{"status": false, "message": "Invalid request"}
 		json.NewEncoder(w).Encode(resp)
+		return
 	}
-	service.AuthenticatePass(user)
-	json.NewEncoder(w).Encode("OK")
+
+	userID, err := service.AuthenticateWithPassword(user)
+
+	if err != nil {
+		var resp = map[string]interface{}{"status": false, "message": "Invalid credentials"}
+		json.NewEncoder(w).Encode(resp)
+		return
+	}
+
+	token := service.GenerateNewToken(userID)
+
+	var resp = map[string]interface{}{"status": false, "message": "logged in"}
+	resp["token"] = token
+
+	json.NewEncoder(w).Encode(resp)
 }
