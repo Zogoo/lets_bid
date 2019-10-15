@@ -14,8 +14,6 @@ func ConnectDb() *sql.DB {
 	if err != nil {
 		panic(err)
 	}
-	// close db when not in use
-	defer conn.Close()
 
 	return conn
 }

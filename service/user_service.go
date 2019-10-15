@@ -23,9 +23,13 @@ func CreateNewUser(user *User) {
 	conn := utils.ConnectDb()
 
 	// Insert
-	if _, err = conn.Query("insert into users values ($1, $2, $3)", user.Name, user.Email, string(hashedPassword)); err != nil {
+	_, err = conn.Query("insert into users values ($1, $2, $3)", user.Name, user.Email, string(hashedPassword))
+
+	if err != nil {
 		panic("Connection error")
 	}
+	// close db when not in use
+	defer conn.Close()
 }
 
 func DeleteUser(user *User) {
@@ -34,6 +38,8 @@ func DeleteUser(user *User) {
 	if _, err := conn.Query("delete from users where users.id $1", user.ID); err != nil {
 		panic("Cannot delete users")
 	}
+	// close db when not in use
+	defer conn.Close()
 }
 
 func AuthenticatePass(user *User) error {
@@ -57,6 +63,7 @@ func AuthenticatePass(user *User) error {
 	if err != nil {
 		return errors.New("Wrong credentials")
 	}
-
+	// close db when not in use
+	defer conn.Close()
 	return nil
 }
