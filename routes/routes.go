@@ -13,7 +13,7 @@ func Handlers() *mux.Router {
 	r.Use(CommonMiddleware)
 
 	r.HandleFunc("/login", v1.Auth).Methods("POST")
-	r.HandleFunc("/register", v1.Create).Methods("PUT")
+	r.HandleFunc("/register", v1.Create).Methods("POST")
 
 	return r
 }
