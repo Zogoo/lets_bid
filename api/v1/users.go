@@ -40,7 +40,7 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 
 	token := service.GenerateNewToken(userID)
 
-	var resp = map[string]interface{}{"status": false, "message": "logged in"}
+	var resp = map[string]interface{}{"status": true, "message": "logged in"}
 	resp["token"] = token
 
 	json.NewEncoder(w).Encode(resp)

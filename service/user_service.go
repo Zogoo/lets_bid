@@ -10,7 +10,7 @@ import (
 )
 
 type User struct {
-	ID       uint   `json:"user_id"`
+	ID       int   `json:"user_id"`
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
@@ -42,17 +42,12 @@ func DeleteUser(user *User) {
 	defer conn.Close()
 }
 
-func AuthenticateWithPassword(user *User) (uint, error) {
+func AuthenticateWithPassword(user *User) (int, error) {
 	conn := utils.ConnectDb()
 
-	result := conn.QueryRow("select id, password from users where users.email = $1", user.Email)
-
-	if result != nil {
-		return 0, errors.New("User does not exists in database")
-	}
-
+	row := conn.QueryRow("select * from users where users.email = $1", user.Email)
 	dbResult := &User{}
-	err := result.Scan(dbResult.ID, dbResult.Password)
+	err := row.Scan(&dbResult.ID, &dbResult.Name, &dbResult.Email, &dbResult.Password)
 
 	if err != nil && err == sql.ErrNoRows {
 		return 0, errors.New("Wrong credentials")

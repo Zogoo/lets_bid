@@ -13,6 +13,6 @@ export default new VueRouter({
     { path: "/", component: SignIn },
     { path: "/signin", component: SignIn },
     { path: "/signup", component: SignUp },
-    { path: "/my_page", component: MyPage }
+    { path: "/my_page", component: MyPage, meta: { authRequired: true } }
   ]
 });

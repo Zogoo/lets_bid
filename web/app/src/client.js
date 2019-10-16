@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import axios from 'axios';
 
 const API_URL = "http://localhost:8089";
@@ -35,14 +36,14 @@ const Client = {
   },
 
   async request(method, path, data) {
-    // let accessToken = await Vue.prototype.$auth.getAccessToken();
+    let accessToken = await Vue.prototype.$auth.getAccessToken();
 
     return this.axiosClient({
       method,
       url: path,
       data,
       headers: {
-        // Authorization: `Bearer: ${accessToken}`
+        Authorization: `Bearer: ${accessToken}`
       }
     }).then(req => {
       return req.data;

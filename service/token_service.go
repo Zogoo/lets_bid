@@ -8,12 +8,12 @@ import (
 )
 
 type Token struct {
-	UserID uint
+	UserID int
 	*jwt.StandardClaims
 }
 
 // GenerateNewToken will generate jwt token for given user id
-func GenerateNewToken(userID uint) string {
+func GenerateNewToken(userID int) string {
 	expiresAt := time.Now().Add(time.Minute * 100000).Unix()
 
 	token := &Token{
