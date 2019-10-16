@@ -85,7 +85,7 @@
         .then((resp) => {
           if (resp.status) {
             this.$auth.setAccessToken(resp.token);
-            this.$router.push("/mypage");
+            this.$router.push("/my_page");
           }
         });
       },

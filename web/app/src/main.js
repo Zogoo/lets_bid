@@ -22,7 +22,7 @@ Vue.prototype.$auth = {
     if (storedToken != null) {
       return this.parseJwt();
     } else {
-      return ''
+      return null
     }
   },
   async checkAuthenticated() {

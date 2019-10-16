@@ -4,11 +4,11 @@ import axios from 'axios';
 const API_URL = "http://localhost:8089";
 
 const Client = {
-  HTTP_POST: "post",
-  HTTP_GET: "get",
-  HTTP_PUT: "put",
-  HTTP_PATCH: "patch",
-  HTTP_DELETE: "delete",
+  HTTP_POST: 'post',
+  HTTP_GET: 'get',
+  HTTP_PUT: 'put',
+  HTTP_PATCH: 'patch',
+  HTTP_DELETE: 'delete',
 
   axiosClient: axios.create({
     baseURL: API_URL,
@@ -39,11 +39,12 @@ const Client = {
     let accessToken = await Vue.prototype.$auth.getAccessToken();
 
     return this.axiosClient({
-      method,
+      method: method,
       url: path,
-      data,
+      data: data,
       headers: {
-        Authorization: `Bearer: ${accessToken}`
+        "Access-Control-Allow-Origin": "*",
+        "Authorization": `Bearer: ${accessToken}`
       }
     }).then(req => {
       return req.data;
