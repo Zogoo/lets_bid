@@ -43,8 +43,7 @@ const Client = {
       url: path,
       data: data,
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Authorization": `Bearer: ${accessToken}`
+        Authorization: `Bearer: ${accessToken}`
       }
     }).then(req => {
       return req.data;

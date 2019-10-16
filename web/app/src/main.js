@@ -20,7 +20,7 @@ Vue.prototype.$auth = {
   async getAccessToken() {
     let storedToken = localStorage.getItem(this.accessTokenField);
     if (storedToken != null) {
-      return this.parseJwt();
+      return this.parseJwt(storedToken);
     } else {
       return null
     }
