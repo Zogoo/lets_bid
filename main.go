@@ -10,9 +10,10 @@ import (
 
 func main() {
 
+	routers := routes.Handlers()
 	// Handler
-	http.Handle("/", routes.Handlers())
+	http.Handle("/", routers)
 
 	log.Printf("Server up on port 8089")
-	log.Fatal(http.ListenAndServe(":8089", handlers.CORS()(r)))
+	log.Fatal(http.ListenAndServe(":8089", handlers.CORS()(routers)))
 }
