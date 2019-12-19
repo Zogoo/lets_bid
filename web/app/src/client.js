@@ -3,20 +3,28 @@ import axios from 'axios';
 
 const API_URL = "http://localhost:8089";
 
+axios.defaults.headers.common = {
+  "Accept": "application/json",
+  "Content-type": "application/x-www-form-urlencoded",
+  "X-Requested-With": "XMLHttpRequest",
+  "Sec-Fetch-Site": "cross-site",
+  "Access-Control-Allow-Origin": "http://localhost:8089"
+};
+
 const Client = {
-  HTTP_POST: 'post',
-  HTTP_GET: 'get',
-  HTTP_PUT: 'put',
-  HTTP_PATCH: 'patch',
-  HTTP_DELETE: 'delete',
+  HTTP_POST: "post",
+  HTTP_GET: "get",
+  HTTP_PUT: "put",
+  HTTP_PATCH: "patch",
+  HTTP_DELETE: "delete",
 
   axiosClient: axios.create({
     baseURL: API_URL,
-    json: true
+    json: true,
   }),
 
   login(data) {
-    return this.request(this.HTTP_POST, "/login", data);
+    return this.request(this.HTTP_POST, "/api/login", data);
   },
 
   getAllItems() {
@@ -43,7 +51,8 @@ const Client = {
       url: path,
       data: data,
       headers: {
-        Authorization: `Bearer: ${accessToken}`
+        "Authorization": `Bearer: ${accessToken}`,
+        "Access-Control-Allow-Origin": "*"
       }
     }).then(req => {
       return req.data;

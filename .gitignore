@@ -20,3 +20,5 @@ vscode/
 lets_bid
 
 __debug_bin
+
+web/app/dist/**

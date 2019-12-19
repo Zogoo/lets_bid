@@ -63,9 +63,9 @@ export default {
       this.showPassword = !this.showPassword;
     },
     registerUser(){
-      client.request(client.HTTP_POST, "/register", JSON.stringify(this.userInfo))
+      client.request(client.HTTP_POST, "/api/register", JSON.stringify(this.userInfo))
       .then((response)=> {
-        debugger;
+        // debugger;
         if (response == "OK") {
          this.$router.push("/signin");
         }
