@@ -4,6 +4,13 @@ import App from "./App.vue";
 import store from "./store";
 import router from "./routes";
 import vuetify from './plugins/vuetify';
+import VueFlashMessage from "vue-flash-message";
+import Vuex from "vuex";
+
+Vue.use(Vuex);
+Vue.use(VueFlashMessage);
+
+require("vue-flash-message/dist/vue-flash-message.min.css");
 
 Vue.config.productionTip = process.env.NODE_ENV == "production";
 

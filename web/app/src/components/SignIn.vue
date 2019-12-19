@@ -86,6 +86,8 @@
           if (resp.status) {
             this.$auth.setAccessToken(resp.token);
             this.$router.push("/my_page");
+          } else {
+            this.flash(resp.message, 'error');
           }
         });
       },
