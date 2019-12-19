@@ -1,14 +1,13 @@
 import Vue from 'vue';
 import axios from 'axios';
 
-const API_URL = "http://localhost:8089";
+const API_URL = "http://localhost:8080";
 
 axios.defaults.headers.common = {
   "Accept": "application/json",
   "Content-type": "application/x-www-form-urlencoded",
   "X-Requested-With": "XMLHttpRequest",
-  "Sec-Fetch-Site": "cross-site",
-  "Access-Control-Allow-Origin": "http://localhost:8089"
+  "Access-Control-Allow-Origin": "http://localhost:8080"
 };
 
 const Client = {
@@ -24,7 +23,7 @@ const Client = {
   }),
 
   login(data) {
-    return this.request(this.HTTP_POST, "/api/login", data);
+    return this.request(this.HTTP_POST, "/login", data);
   },
 
   getAllItems() {
