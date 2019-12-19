@@ -84,10 +84,11 @@
         client.login(JSON.stringify(this.userInfo))
         .then((resp) => {
           if (resp.status) {
+            this.flash(resp.message, 'success', { timeout: 600 });
             this.$auth.setAccessToken(resp.token);
             this.$router.push("/my_page");
           } else {
-            this.flash(resp.message, 'error');
+            this.flash(resp.message, 'error', { timeout: 600 });
           }
         });
       },
