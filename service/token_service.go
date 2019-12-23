@@ -1,15 +1,24 @@
 package service
 
 import (
+	"encoding/json"
 	"lets_bid/utils"
+	"strconv"
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
+
+	"github.com/go-redis/redis"
 )
 
 type Token struct {
 	UserID int
 	*jwt.StandardClaims
+}
+
+type AuthContext struct {
+	secret      string
+	expire_time time.Time
 }
 
 // GenerateNewToken will generate jwt token for given user id
@@ -34,6 +43,30 @@ func GenerateNewToken(userID int) string {
 	conn := utils.ConnectDb()
 	conn.Query("insert into tokens values ($1, $2)", userID, tokenString)
 	defer conn.Close()
+
+	// TODO: Move it to lib or service package
+	redisClient := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+
+	currentTime := time.Now()
+	authContext := &AuthContext{
+		secret:      "secret",
+		expire_time: currentTime.Add(time.Second * 3600),
+	}
+
+	authContextJSON, err := json.Marshal(authContext)
+
+	if err != nil {
+		panic(err)
+	}
+
+	err = redisClient.Set("cas:auth_context:"+strconv.Itoa(userID), authContextJSON, 0).Err()
+	if err != nil {
+		panic(err)
+	}
 
 	return tokenString
 }
