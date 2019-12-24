@@ -17,8 +17,8 @@ type Token struct {
 }
 
 type AuthContext struct {
-	secret      string
-	expire_time time.Time
+	Secret     string    `json:"secret"`
+	ExpireTime time.Time `json:"expire_time"`
 }
 
 // GenerateNewToken will generate jwt token for given user id
@@ -53,8 +53,8 @@ func GenerateNewToken(userID int) string {
 
 	currentTime := time.Now()
 	authContext := &AuthContext{
-		secret:      "secret",
-		expire_time: currentTime.Add(time.Second * 3600),
+		Secret:     "secret",
+		ExpireTime: currentTime.Add(time.Second * 3600),
 	}
 
 	authContextJSON, err := json.Marshal(authContext)
