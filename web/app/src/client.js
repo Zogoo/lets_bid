@@ -26,6 +26,10 @@ const Client = {
     return this.request(this.HTTP_POST, "/cas/login", data);
   },
 
+  getHelloWorld() {
+    return this.request(this.HTTP_GET, "/sso/my_page");
+  },
+
   getAllItems() {
     return this.request(this.HTTP_GET, this.itemPath(null));
   },

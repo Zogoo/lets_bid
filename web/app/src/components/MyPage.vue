@@ -19,6 +19,7 @@
           justify-center
         >
           <v-flex text-xs-center>
+            {{ this.midText }}
           </v-flex>
         </v-layout>
       </v-container>
@@ -32,14 +33,31 @@
   </v-app>
 </template>
 <script>
+import client from '../client'
 export default {
   data() {
     return {
+      midText: "Fetching..",
       drawer: null
     }
   },
   components: { },
+  created () {
+    this.getHelloWorld();
+  },
+  watch: {
+    '$route': 'getHelloWorld'
+  },
   methods: {
+    getHelloWorld() {
+      client.getHelloWorld().then((resp) => {
+        if(resp.status) {
+          this.midText = resp.message;
+        } else {
+          this.midText = "Failed";
+        }
+      })
+    }
   },
 }
 </script>

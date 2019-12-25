@@ -17,6 +17,7 @@ func Handlers() *mux.Router {
 
 	r.HandleFunc("/cas/login", v1.Auth).Methods("POST")
 	r.HandleFunc("/cas/register", v1.Create).Methods("POST")
+	r.HandleFunc("/sso/my_page", v1.Index).Methods("GET")
 
 	return r
 }
