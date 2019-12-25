@@ -46,7 +46,7 @@ func GenerateNewToken(userID int) string {
 
 	signedToken := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), token)
 
-	tokenString, err := signedToken.SignedString([]byte("secret"))
+	tokenString, err := signedToken.SignedString([]byte("my-secret-code"))
 
 	if err != nil {
 		panic("Cannot sign token")
