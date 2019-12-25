@@ -63,12 +63,12 @@ export default {
       this.showPassword = !this.showPassword;
     },
     registerUser(){
-      client.request(client.HTTP_POST, "/register", JSON.stringify(this.userInfo))
+      client.request(client.HTTP_POST, "/cas/register", JSON.stringify(this.userInfo))
       .then((response)=> {
         // debugger;
         if (response == "OK") {
          this.flash(response.message, 'success', { timeout: 2000 });
-         this.$router.push("/signin");
+         this.$router.push("/cas/signin");
         } else {
           this.flash(response.message, 'error', { timeout: 2000 });
         }

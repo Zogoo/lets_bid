@@ -11,8 +11,9 @@ export default new VueRouter({
   mode: "history",
   routes: [
     { path: "/", component: SignIn },
-    { path: "/signin", component: SignIn },
-    { path: "/signup", component: SignUp },
-    { path: "/my_page", component: MyPage, meta: { authRequired: true } }
+    { path: "/cas", component: SignIn },
+    { path: "/cas/signin", component: SignIn },
+    { path: "/cas/signup", component: SignUp },
+    { path: "/sso/my_page", component: MyPage, meta: { authRequired: true } }
   ]
 });

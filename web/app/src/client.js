@@ -23,7 +23,7 @@ const Client = {
   }),
 
   login(data) {
-    return this.request(this.HTTP_POST, "/login", data);
+    return this.request(this.HTTP_POST, "/cas/login", data);
   },
 
   getAllItems() {

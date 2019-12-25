@@ -62,7 +62,7 @@ router.beforeEach((to, from, next) => {
   const loggedIn = Vue.prototype.$auth.checkAuthenticated();
 
   if (authRequired && !loggedIn) {
-    return next("/signin");
+    return next("/cas/signin");
   }
 
   next();

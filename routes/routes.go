@@ -15,8 +15,8 @@ func Handlers() *mux.Router {
 	r.Use(CommonMiddleware)
 	r.Use(TokenValidator)
 
-	r.HandleFunc("/login", v1.Auth).Methods("POST")
-	r.HandleFunc("/register", v1.Create).Methods("POST")
+	r.HandleFunc("/cas/login", v1.Auth).Methods("POST")
+	r.HandleFunc("/cas/register", v1.Create).Methods("POST")
 
 	return r
 }

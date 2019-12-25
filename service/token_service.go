@@ -17,7 +17,7 @@ import (
 
 // Token is play load part of JWT token
 type Token struct {
-	AuthContextID string
+	AuthContextID string `json:"auth_context_id"`
 	*jwt.StandardClaims
 }
 
@@ -67,7 +67,7 @@ func GenerateNewToken(userID int) string {
 	authContext := &AuthContext{
 		Status: "OK",
 		JWT: JWTToken{
-			Secret: "secret",
+			Secret: "my-secret-code",
 			Token:  tokenString,
 		},
 	}

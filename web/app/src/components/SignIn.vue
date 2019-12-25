@@ -86,7 +86,7 @@
           if (resp.status) {
             this.flash(resp.message, 'success', { timeout: 2000 });
             this.$auth.setAccessToken(resp.token);
-            this.$router.push("/my_page");
+            this.$router.push("/sso/my_page");
           } else {
             this.flash(resp.message, 'error', { timeout: 2000 });
           }
