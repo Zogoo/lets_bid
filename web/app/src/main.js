@@ -18,13 +18,13 @@ Vue.config.productionTip = process.env.NODE_ENV == "production";
 // TODO: move this part to different package
 Vue.prototype.$auth = {
   accessTokenField: "access-token",
-  async setAccessToken(token) {
+  setAccessToken(token) {
     localStorage.setItem(this.accessTokenField, token);
   },
-  async clearAccessToken() {
+  clearAccessToken() {
     localStorage.setItem(this.accessTokenField, null);
   },
-  async getAccessToken() {
+  getAccessToken() {
     let storedToken = localStorage.getItem(this.accessTokenField);
     if (storedToken != null) {
       return this.parseJwt(storedToken);
@@ -32,7 +32,7 @@ Vue.prototype.$auth = {
       return null
     }
   },
-  async checkAuthenticated() {
+  checkAuthenticated() {
     try {
       this.parseJwt(localStorage.getItem(this.accessTokenField));
       return true;
@@ -59,7 +59,7 @@ Vue.prototype.$auth = {
 router.beforeEach((to, from, next) => {
   // redirect to signin page if not logged in and trying to access a restricted page
   const authRequired = to.matched.some(record => record.meta.authRequired);
-  const loggedIn = Vue.prototype.$auth.checkAuthenticated;
+  const loggedIn = Vue.prototype.$auth.checkAuthenticated();
 
   if (authRequired && !loggedIn) {
     return next("/signin");

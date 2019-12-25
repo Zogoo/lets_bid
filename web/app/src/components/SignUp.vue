@@ -67,10 +67,10 @@ export default {
       .then((response)=> {
         // debugger;
         if (response == "OK") {
-         this.flash(response.message, 'success', { timeout: 600 });
+         this.flash(response.message, 'success', { timeout: 2000 });
          this.$router.push("/signin");
         } else {
-          this.flash(response.message, 'error', { timeout: 600 });
+          this.flash(response.message, 'error', { timeout: 2000 });
         }
       });
     }

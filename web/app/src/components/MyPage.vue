@@ -1,6 +1,5 @@
 <template>
   <v-app id="inspire">
-    <SideMenu/>
     <v-app-bar
       app
       color="indigo"
@@ -24,7 +23,6 @@
         </v-layout>
       </v-container>
     </v-content>
-    <BottomNavigator/>
     <v-footer
       color="indigo"
       app
@@ -34,15 +32,13 @@
   </v-app>
 </template>
 <script>
-import BottomNavigator from './BottomNav';
-import SideMenu from './SideMenu';
 export default {
   data() {
     return {
       drawer: null
     }
   },
-  components: { SideMenu, BottomNavigator },
+  components: { },
   methods: {
   },
 }
