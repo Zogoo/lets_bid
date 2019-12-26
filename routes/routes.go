@@ -13,11 +13,12 @@ func Handlers() *mux.Router {
 
 	r := mux.NewRouter().StrictSlash(true)
 	r.Use(CommonMiddleware)
-	r.Use(TokenValidator)
 
 	r.HandleFunc("/cas/login", v1.Auth).Methods("POST")
 	r.HandleFunc("/cas/register", v1.Create).Methods("POST")
-	r.HandleFunc("/sso/my_page", v1.Index).Methods("GET")
+	ssoServiceRoute := r.PathPrefix("/sso").Subrouter()
+	ssoServiceRoute.Use(TokenValidator)
+	ssoServiceRoute.HandleFunc("/my_page", v1.Index).Methods("GET")
 
 	return r
 }
@@ -41,16 +42,21 @@ func TokenValidator(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var err error
 		authorizationHeader := r.Header.Get("Authorization")
-		jwtTokenString := strings.Split(authorizationHeader, " ")[1]
+		jwtTokenString := strings.Split(authorizationHeader, " ")
 
-		if jwtTokenString != "" && jwtTokenString != "null" {
-			_, err = service.ValidateToken(jwtTokenString)
+		if len(jwtTokenString) != 2 {
+			http.Error(w, "401 Malformed token", http.StatusUnauthorized)
+			return
 		}
+
+		_, err = service.ValidateToken(jwtTokenString[1])
+
 		if err != nil {
 			http.Error(w, "401 Unauthorized request", http.StatusUnauthorized)
-		} else {
-			next.ServeHTTP(w, r)
+			return
 		}
+
+		next.ServeHTTP(w, r)
 
 		defer func() {
 			if r := recover(); r != nil {
