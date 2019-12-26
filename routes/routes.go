@@ -39,15 +39,15 @@ func CommonMiddleware(next http.Handler) http.Handler {
 // TokenValidator validate header
 func TokenValidator(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var err error
 		authorizationHeader := r.Header.Get("Authorization")
 		jwtTokenString := strings.Split(authorizationHeader, " ")[1]
 
 		if jwtTokenString != "" && jwtTokenString != "null" {
-			_, err := service.ValidateToken(jwtTokenString)
-
-			if err != nil {
-				http.Error(w, "401 Unauthorized request", http.StatusUnauthorized)
-			}
+			_, err = service.ValidateToken(jwtTokenString)
+		}
+		if err != nil {
+			http.Error(w, "401 Unauthorized request", http.StatusUnauthorized)
 		} else {
 			next.ServeHTTP(w, r)
 		}
